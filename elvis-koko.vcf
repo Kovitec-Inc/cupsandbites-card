@@ -1,0 +1,11 @@
+BEGIN:VCARD
+VERSION:3.0
+N:Koko;Elvis;V.;;
+FN:Elvis V. Koko
+ORG:Cups & Bites
+TITLE:Founder
+TEL;TYPE=WORK,VOICE:+1-289-402-5871
+EMAIL;TYPE=WORK,INTERNET:inquiries@cupsandbites.com
+URL:https://cupsandbites.com
+NOTE:Ontario's mood-first food discovery platform.
+END:VCARD

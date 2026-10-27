@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en-CA">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Cups &amp; Bites — Hello from Elvis</title>
+  <meta name="description" content="Find independent food spots across Ontario, or list your food spot on Cups & Bites.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#97440c">
+  <link rel="icon" href="https://cupsandbites.com/favicon.ico">
+  <link rel="apple-touch-icon" href="https://cupsandbites.com/app-icon-1024.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap">
+  <style>
+    :root {
+      --amber: #97440c;
+      --amber-deep: #7a370a;
+      --orange: #d4640a;
+      --cream: #fcfaf8;
+      --card: #f8f6f2;
+      --ink: #1b120e;
+      --muted: #4e3e36;
+      --border: #d9d3c9;
+      --soft: #f8c08f;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: var(--cream);
+      color: var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      flex-direction: column;
+    }
+    .hero {
+      background: var(--amber);
+      color: var(--cream);
+      padding: max(28px, env(safe-area-inset-top)) 20px 34px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero .ghost {
+      position: absolute;
+      right: -60px;
+      top: -50px;
+      width: 240px;
+      height: 240px;
+      opacity: 0.08;
+    }
+    .wrap { max-width: 440px; margin: 0 auto; width: 100%; position: relative; }
+    .brand { display: flex; align-items: center; gap: 10px; }
+    .brand-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 22px; line-height: 1; }
+    .brand-sub { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.85; margin-top: 3px; }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 34px;
+      line-height: 1.08;
+      letter-spacing: -0.015em;
+      margin: 30px 0 10px;
+    }
+    h1 em { color: var(--soft); }
+    .lede { margin: 0; font-size: 16px; line-height: 1.5; opacity: 0.92; }
+    main { flex: 1; padding: 26px 20px 20px; }
+    .ctas { display: flex; flex-direction: column; gap: 14px; }
+    .cta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 76px;
+      padding: 16px 18px;
+      border-radius: 16px;
+      text-decoration: none;
+      transition: transform 0.12s ease, background-color 0.12s ease;
+    }
+    .cta:active { transform: scale(0.985); }
+    .cta:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    .cta-primary { background: var(--ink); color: var(--cream); }
+    .cta-primary:hover { background: #2c1f18; }
+    .cta-secondary { background: #ffffff; color: var(--ink); border: 1.5px solid var(--border); }
+    .cta-secondary:hover { border-color: var(--amber); }
+    .cta-icon {
+      flex-shrink: 0;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cta-primary .cta-icon { background: var(--orange); color: #ffffff; }
+    .cta-secondary .cta-icon { background: #f6e6d8; color: var(--amber); }
+    .cta-text { flex: 1; min-width: 0; }
+    .cta-label { display: block; font-size: 18px; font-weight: 700; line-height: 1.2; }
+    .cta-hint { display: block; font-size: 13.5px; line-height: 1.35; margin-top: 3px; }
+    .cta-primary .cta-hint { color: #e7dbd3; }
+    .cta-secondary .cta-hint { color: var(--muted); }
+    .chev { flex-shrink: 0; opacity: 0.6; }
+    .contact {
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .who-name { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 18px; }
+    .who-role { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amber); margin-top: 2px; }
+    .save {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      border: 1.5px solid var(--amber);
+      color: var(--amber);
+      font-weight: 700;
+      font-size: 14px;
+      text-decoration: none;
+    }
+    .save:hover { background: #f6e6d8; }
+    .save:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    footer {
+      padding: 18px 20px max(22px, env(safe-area-inset-bottom));
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    footer a { color: var(--amber); font-weight: 600; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+    @media (prefers-reduced-motion: reduce) { .cta { transition: none; } }
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <svg class="ghost" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="0.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></svg>
+    <div class="wrap">
+      <div class="brand">
+        <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 2v2"/><path d="M14 2v2"/><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"/><path d="M6 2v2"/></svg>
+        <div>
+          <div class="brand-name">Cups &amp; Bites</div>
+          <div class="brand-sub">Ontario's Explorer Platform</div>
+        </div>
+      </div>
+      <h1>Find your vibe.<br><em>Taste</em> your city.</h1>
+      <p class="lede">Independent food spots across 100+ Ontario cities. What brings you here?</p>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <nav class="ctas" aria-label="Choose where to go">
+        <a class="cta cta-primary" data-cta="diner" href="https://cupsandbites.com/">
+          <span class="cta-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
+          </span>
+          <span class="cta-text">
+            <span class="cta-label">Find a place to eat</span>
+            <span class="cta-hint">Hidden gems near you, matched to your mood</span>
+          </span>
+          <svg class="chev" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+        <a class="cta cta-secondary" data-cta="owner" href="https://cupsandbites.com/for-business">
+          <span class="cta-icon" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
+          </span>
+          <span class="cta-text">
+            <span class="cta-label">List my food spot</span>
+            <span class="cta-hint">Restaurants, cafés, bakeries, food trucks · free</span>
+          </span>
+          <svg class="chev" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+        </a>
+      </nav>
+
+      <section class="contact" aria-label="Contact">
+        <div>
+          <div class="who-name">Elvis V. Koko</div>
+          <div class="who-role">Founder</div>
+        </div>
+        <a class="save" href="/elvis-koko.vcf" download="Elvis V. Koko - Cups & Bites.vcf">
+          <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" x2="19" y1="8" y2="14"/><line x1="22" x2="16" y1="11" y2="11"/></svg>
+          Save contact
+        </a>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <a href="https://cupsandbites.com/">cupsandbites.com</a> · Welland, Ontario
+  </footer>
+
+  <script>
+    // Carry the scan source (?src=nfc or ?src=qr) into UTM tags on each button,
+    // so analytics can tell chip taps from QR scans and diners from owners.
+    (function () {
+      var params = new URLSearchParams(window.location.search);
+      var src = (params.get('src') || 'direct').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 20) || 'direct';
+      var links = document.querySelectorAll('a[data-cta]');
+      for (var i = 0; i < links.length; i++) {
+        var a = links[i];
+        try {
+          var url = new URL(a.getAttribute('href'));
+          url.searchParams.set('utm_source', 'business-card');
+          url.searchParams.set('utm_medium', src);
+          url.searchParams.set('utm_campaign', 'founder-card');
+          url.searchParams.set('utm_content', a.getAttribute('data-cta'));
+          a.setAttribute('href', url.toString());
+        } catch (e) { /* leave the plain link in place */ }
+      }
+    })();
+  </script>
+</body>
+</html>
