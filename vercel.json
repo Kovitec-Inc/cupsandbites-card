@@ -36,7 +36,7 @@
   "rewrites": [
     {
       "source": "/tap",
-      "destination": "/index.html"
+      "destination": "/"
     }
   ]
 }
