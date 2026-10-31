@@ -138,7 +138,15 @@
     footer a { color: var(--amber); font-weight: 600; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     @media (prefers-reduced-motion: reduce) { .cta { transition: none; } }
+    .no-contact .contact { display: none; }
   </style>
+  <script>
+    // /tap = brand card (no personal contact). Set before paint so the contact block never flashes.
+    if (location.pathname.replace(/\/+$/, '') === '/tap') {
+      document.documentElement.classList.add('no-contact');
+      document.title = 'Cups & Bites — Find your vibe';
+    }
+  </script>
 </head>
 <body>
   <header class="hero">
@@ -211,7 +219,7 @@
           var url = new URL(a.getAttribute('href'));
           url.searchParams.set('utm_source', 'business-card');
           url.searchParams.set('utm_medium', src);
-          url.searchParams.set('utm_campaign', 'founder-card');
+          url.searchParams.set('utm_campaign', document.documentElement.classList.contains('no-contact') ? 'tap-card' : 'founder-card');
           url.searchParams.set('utm_content', a.getAttribute('data-cta'));
           a.setAttribute('href', url.toString());
         } catch (e) { /* leave the plain link in place */ }

@@ -12,6 +12,11 @@ The page passes `src` through as `utm_medium` on both buttons, and tags each but
 `utm_content=diner` or `utm_content=owner`, so analytics can tell chip taps from QR scans
 and diners from food-business owners.
 
+## Brand card (no personal contact)
+
+- NFC / QR: `https://go.cupsandbites.com/tap?src=nfc` (or `?src=qr`)
+- Same page with the founder name and Save contact hidden; buttons tagged `utm_campaign=tap-card`.
+
 ## Files
 
 - `index.html` — the page (two CTAs + save contact)

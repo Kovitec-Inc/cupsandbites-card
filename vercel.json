@@ -5,17 +5,38 @@
     {
       "source": "/elvis-koko.vcf",
       "headers": [
-        { "key": "Content-Type", "value": "text/vcard; charset=utf-8" },
-        { "key": "Content-Disposition", "value": "attachment; filename=\"Elvis-Koko-Cups-and-Bites.vcf\"" }
+        {
+          "key": "Content-Type",
+          "value": "text/vcard; charset=utf-8"
+        },
+        {
+          "key": "Content-Disposition",
+          "value": "attachment; filename=\"Elvis-Koko-Cups-and-Bites.vcf\""
+        }
       ]
     },
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
       ]
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/tap",
+      "destination": "/index.html"
     }
   ]
 }
