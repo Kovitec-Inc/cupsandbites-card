@@ -100,7 +100,8 @@
     .cta-primary .cta-hint { color: #e7dbd3; }
     .cta-secondary .cta-hint { color: var(--muted); }
     .chev { flex-shrink: 0; opacity: 0.6; }
-    .nb { white-space: nowrap; }
+    .cta-label-fit { white-space: nowrap; font-size: clamp(13px, 4.3vw, 18px); letter-spacing: -0.01em; }
+    @media (max-width: 380px) { .cta { gap: 12px; padding: 16px 14px; } .cta-icon { width: 40px; height: 40px; } }
     .contact {
       margin-top: 22px;
       padding-top: 20px;
@@ -163,7 +164,7 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 0 0 2-2V2"/><path d="M7 2v20"/><path d="M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7"/></svg>
           </span>
           <span class="cta-text">
-            <span class="cta-label">Find a place to <span class="nb">eat &amp; drink</span></span>
+            <span class="cta-label cta-label-fit">Find a place to eat &amp; drink</span>
             <span class="cta-hint">Cafés, bars &amp; hidden gems, matched to your mood</span>
           </span>
           <svg class="chev" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
@@ -173,8 +174,8 @@
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5"/><path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244"/><path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05"/></svg>
           </span>
           <span class="cta-text">
-            <span class="cta-label">List my food spot</span>
-            <span class="cta-hint">Restaurants, cafés, bakeries, food trucks · free</span>
+            <span class="cta-label cta-label-fit">List my food spot</span>
+            <span class="cta-hint">Restaurants, cafés, bars, bakeries, food trucks · free</span>
           </span>
           <svg class="chev" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
         </a>
