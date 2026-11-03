@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Cups &amp; Bites — Hello from Elvis</title>
-  <meta name="description" content="Find independent places to eat and drink across Ontario, or list your food spot on Cups & Bites.">
+  <meta name="description" content="Find independent places to eat and drink across Ontario, list your food spot, or ask about Cups & Bites digital services for local businesses.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#97440c">
   <link rel="icon" href="https://cupsandbites.com/favicon.ico">
@@ -138,6 +138,22 @@
     footer a { color: var(--amber); font-weight: 600; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
     @media (prefers-reduced-motion: reduce) { .cta { transition: none; } }
+
+    .services { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+    .services h2 { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 24px; line-height: 1.15; margin: 0 0 6px; }
+    .services .sub { margin: 0 0 16px; font-size: 14.5px; line-height: 1.45; color: var(--muted); }
+    .svc-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 10px; }
+    .svc { background: #ffffff; border: 1.5px solid var(--border); border-radius: 14px; padding: 13px 15px; }
+    .svc-title { font-weight: 700; font-size: 16px; line-height: 1.25; }
+    .svc-desc { font-size: 13.5px; line-height: 1.4; color: var(--muted); margin-top: 3px; }
+    .svc-note { margin: 14px 0 0; font-size: 13px; line-height: 1.45; color: var(--muted); }
+    .talk { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+    .talk a { display: flex; align-items: center; justify-content: center; min-height: 48px; border-radius: 999px; font-weight: 700; font-size: 15px; text-decoration: none; padding: 0 18px; }
+    .talk .t-primary { background: var(--amber); color: var(--cream); }
+    .talk .t-primary:hover { background: var(--amber-deep); }
+    .talk .t-secondary { border: 1.5px solid var(--amber); color: var(--amber); background: #ffffff; }
+    .talk .t-secondary:hover { background: #f6e6d8; }
+    .talk a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
     .no-contact .contact { display: none; }
   </style>
   <script>
@@ -188,6 +204,26 @@
           <svg class="chev" aria-hidden="true" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
         </a>
       </nav>
+
+
+      <section class="services" aria-label="Services">
+        <h2>What we do for local businesses</h2>
+        <p class="sub">Digital services built around your business, in hospitality and beyond.</p>
+        <ul class="svc-list">
+          <li class="svc"><div class="svc-title">Google Business Profile</div><div class="svc-desc">Set up, clean up and keep your listing accurate, so customers find the right hours and details.</div></li>
+          <li class="svc"><div class="svc-title">Website development</div><div class="svc-desc">New, mobile-friendly websites made for your business.</div></li>
+          <li class="svc"><div class="svc-title">Website improvement</div><div class="svc-desc">Faster, clearer and easier to use, starting from the site you already have.</div></li>
+          <li class="svc"><div class="svc-title">Search visibility (SEO)</div><div class="svc-desc">Help your business show up when people search locally. We don&rsquo;t promise rankings.</div></li>
+          <li class="svc"><div class="svc-title">Social media management</div><div class="svc-desc">Content and posting handled for you.</div></li>
+          <li class="svc"><div class="svc-title">Custom software &amp; apps</div><div class="svc-desc">Applications built around how your business works, in any industry.</div></li>
+          <li class="svc"><div class="svc-title">IT &amp; digital services, any industry</div><div class="svc-desc">Real estate, trades, professional services and more. Each service is customized to the business.</div></li>
+        </ul>
+        <p class="svc-note">Not sure what you need? Tell us about your business and we&rsquo;ll suggest where to start.</p>
+        <div class="talk">
+          <a class="t-primary" href="mailto:inquiries@cupsandbites.com?subject=Services%20inquiry%20(business%20card)">Email us about your business</a>
+          <a class="t-secondary" href="tel:+12894025871">Call (289) 402-5871</a>
+        </div>
+      </section>
 
       <section class="contact" aria-label="Contact">
         <div>
