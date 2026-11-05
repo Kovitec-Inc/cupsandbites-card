@@ -50,6 +50,7 @@ function buildEmail(c) {
     `Food business owner: ${c.is_food_business ? "Yes" : "No"}`,
     c.is_food_business && c.business_name ? `Business: ${c.business_name}` : null,
     `Wants Cups & Bites updates: ${c.wants_updates ? "Yes (opted in)" : "No"}`,
+    `How they reached the form: ${c.entry === "connect-button" ? "\"Not in food? Let's connect\" button" : "After saving your contact"}`,
     `Scanned via: ${c.src || "direct"}`,
     `When: ${when}`,
     "",
@@ -103,6 +104,7 @@ async function handler(req, res) {
     business_name: clean(b.business_name, 150),
     wants_updates: b.wants_updates === true,
     src: clean(b.src, 20).toLowerCase().replace(/[^a-z0-9_-]/g, ""),
+    entry: b.entry === "connect-button" ? "connect-button" : "after-save",
   };
   if (!c.name) return res.status(400).json({ ok: false, error: "name_required" });
   if (!c.phone && !c.email) return res.status(400).json({ ok: false, error: "contact_required" });
@@ -113,7 +115,7 @@ async function handler(req, res) {
     body: JSON.stringify({
       p_name: c.name, p_phone: c.phone || null, p_email: c.email || null, p_what_they_do: c.what_they_do || null,
       p_is_food_business: c.is_food_business, p_business_name: c.business_name || null, p_wants_updates: c.wants_updates,
-      p_src: c.src || null, p_session_id: clean(b.session_id, 64) || null, p_user_agent: clean(req.headers["user-agent"], 300) || null,
+      p_src: c.src || null, p_entry: c.entry, p_session_id: clean(b.session_id, 64) || null, p_user_agent: clean(req.headers["user-agent"], 300) || null,
     }),
   }).catch((e) => ({ ok: false, status: 0, text: async () => String(e) }));
 
