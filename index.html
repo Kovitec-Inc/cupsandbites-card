@@ -154,7 +154,38 @@
     .talk .t-secondary { border: 1.5px solid var(--amber); color: var(--amber); background: #ffffff; }
     .talk .t-secondary:hover { background: #f6e6d8; }
     .talk a:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
-    .no-contact .contact { display: none; }
+    .no-contact .contact, .no-contact .swap { display: none !important; }
+    /* Share-back panel: appears after "Save contact" on the founder card */
+    .swap { margin-top: 18px; background: #ffffff; border: 1.5px solid var(--border); border-radius: 18px; padding: 20px 18px; }
+    .swap[hidden] { display: none; }
+    .swap h2 { font-family: 'Playfair Display', serif; font-size: 22px; line-height: 1.15; margin: 0 0 6px; }
+    .swap .swap-sub { margin: 0 0 16px; font-size: 15px; line-height: 1.45; color: var(--muted); }
+    .swap form { display: flex; flex-direction: column; gap: 12px; }
+    .swap label.field { display: flex; flex-direction: column; gap: 5px; font-size: 14px; font-weight: 600; }
+    .swap label.field .opt { font-weight: 400; color: var(--muted); }
+    .swap input[type="text"], .swap input[type="tel"], .swap input[type="email"] {
+      font: inherit; font-size: 16px; min-height: 46px; padding: 0 12px; border-radius: 10px;
+      border: 1.5px solid var(--border); background: var(--cream); color: var(--ink); width: 100%;
+    }
+    .swap input:focus-visible { outline: 3px solid var(--orange); outline-offset: 1px; border-color: var(--amber); }
+    .swap .hint { margin: -4px 0 0; font-size: 13px; color: var(--muted); }
+    .swap .check { display: flex; align-items: flex-start; gap: 10px; font-size: 15px; line-height: 1.35; min-height: 44px; padding-top: 4px; cursor: pointer; }
+    .swap .check input { width: 20px; height: 20px; margin: 1px 0 0; accent-color: var(--amber); flex-shrink: 0; }
+    .swap .biz[hidden] { display: none; }
+    .swap .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+    .swap .err { margin: 0; font-size: 14px; color: #a61b1b; }
+    .swap .err[hidden] { display: none; }
+    .swap .actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 4px; }
+    .swap .send { font: inherit; font-size: 15px; font-weight: 700; min-height: 48px; padding: 0 22px; border: 0; border-radius: 999px; background: var(--amber); color: var(--cream); cursor: pointer; }
+    .swap .send:hover { background: var(--amber-deep); }
+    .swap .send[disabled] { opacity: .65; cursor: default; }
+    .swap .skip { font: inherit; font-size: 15px; background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; min-height: 44px; padding: 0 6px; cursor: pointer; }
+    .swap .send:focus-visible, .swap .skip:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; }
+    .swap .startup { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--border); font-size: 13px; line-height: 1.5; color: var(--muted); }
+    .swap .done { display: flex; gap: 10px; align-items: flex-start; }
+    .swap .done[hidden] { display: none; }
+    .swap .done p { margin: 0; font-size: 15px; line-height: 1.45; }
+    .swap .done strong { font-family: 'Playfair Display', serif; font-size: 20px; display: block; margin-bottom: 2px; }
   </style>
   <script>
     // /tap = brand card (no personal contact). Set before paint so the contact block never flashes.
@@ -236,6 +267,52 @@
           Save contact
         </a>
       </section>
+
+      <section class="swap" id="swap" aria-labelledby="swap-title" hidden>
+        <div id="swap-form-wrap">
+          <h2 id="swap-title" tabindex="-1">Let&rsquo;s stay in touch</h2>
+          <p class="swap-sub">You&rsquo;ve got my details. Share yours so I can save yours too.</p>
+          <form id="swap-form" novalidate>
+            <label class="field">Name
+              <input type="text" name="name" autocomplete="name" maxlength="100" required>
+            </label>
+            <label class="field">Phone
+              <input type="tel" name="phone" autocomplete="tel" inputmode="tel" maxlength="40">
+            </label>
+            <label class="field">Email
+              <input type="email" name="email" autocomplete="email" maxlength="254">
+            </label>
+            <p class="hint">Phone or email, whichever you prefer.</p>
+            <label class="field">What do you do? <span class="opt">Optional: job, company, anything</span>
+              <input type="text" name="what_they_do" autocomplete="organization-title" maxlength="200">
+            </label>
+            <label class="check">
+              <input type="checkbox" name="is_food_business" id="swap-food">
+              <span>I own a restaurant, café, bar or food business</span>
+            </label>
+            <label class="field biz" id="swap-biz" hidden>Business name
+              <input type="text" name="business_name" autocomplete="organization" maxlength="150">
+            </label>
+            <label class="check">
+              <input type="checkbox" name="wants_updates">
+              <span>Send me occasional updates from Cups &amp; Bites</span>
+            </label>
+            <div class="hp" aria-hidden="true">
+              <label>Website <input type="text" name="website" tabindex="-1" autocomplete="off"></label>
+            </div>
+            <p class="err" id="swap-err" role="alert" hidden></p>
+            <div class="actions">
+              <button type="submit" class="send" id="swap-send">Share my details</button>
+              <button type="button" class="skip" id="swap-skip">Skip</button>
+            </div>
+          </form>
+        </div>
+        <div class="done" id="swap-done" role="status" hidden>
+          <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#97440c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6 9 17l-5-5"/></svg>
+          <p><strong id="swap-done-title">Thanks!</strong>I&rsquo;ve got your details. Talk soon.</p>
+        </div>
+        <p class="startup">Cups &amp; Bites is my startup: helping people find mom-and-pop, independent and internationally owned food spots by mood and vibe.</p>
+      </section>
     </div>
   </main>
 
@@ -261,6 +338,92 @@
           a.setAttribute('href', url.toString());
         } catch (e) { /* leave the plain link in place */ }
       }
+    })();
+
+    // Share-back: after someone saves Elvis's contact, invite them to share theirs.
+    (function () {
+      if (document.documentElement.classList.contains('no-contact')) return; // founder card only
+      var swap = document.getElementById('swap');
+      var save = document.querySelector('.contact .save');
+      if (!swap || !save) return;
+      var form = document.getElementById('swap-form');
+      var err = document.getElementById('swap-err');
+      var send = document.getElementById('swap-send');
+      var food = document.getElementById('swap-food');
+      var biz = document.getElementById('swap-biz');
+      var shownAt = 0;
+      var src = (new URLSearchParams(location.search).get('src') || 'direct').toLowerCase().replace(/[^a-z0-9_-]/g, '').slice(0, 20) || 'direct';
+      var sid = '';
+      try { sid = sessionStorage.getItem('cb-swap-sid') || ''; if (!sid) { sid = (crypto.randomUUID ? crypto.randomUUID() : String(Math.random()).slice(2)); sessionStorage.setItem('cb-swap-sid', sid); } } catch (e) {}
+      var done = false;
+      try { done = sessionStorage.getItem('cb-swap-done') === '1'; } catch (e) {}
+
+      function showPanel() {
+        if (done || !swap.hidden) return;
+        swap.hidden = false;
+        shownAt = Date.now();
+        var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        swap.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+      }
+      // Let the contact download / contact sheet open first, then reveal the panel underneath.
+      save.addEventListener('click', function () { setTimeout(showPanel, 700); });
+
+      food.addEventListener('change', function () { biz.hidden = !food.checked; });
+      document.getElementById('swap-skip').addEventListener('click', function () {
+        swap.hidden = true;
+        try { sessionStorage.setItem('cb-swap-done', '1'); } catch (e) {}
+        done = true;
+      });
+
+      function fail(msg) { err.textContent = msg; err.hidden = false; }
+      var MESSAGES = {
+        name_required: 'Please add your name.',
+        contact_required: 'Please add a phone number or an email.',
+        invalid_email: 'That email doesn’t look right. Please check it.',
+        invalid_phone: 'That phone number doesn’t look right. Please check it.',
+        rate_limited: 'Thanks, we’ve already got a few from you. Please try again later.'
+      };
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        err.hidden = true;
+        var f = form.elements;
+        var name = f.name.value.trim(), phone = f.phone.value.trim(), email = f.email.value.trim();
+        if (!name) { fail(MESSAGES.name_required); f.name.focus(); return; }
+        if (!phone && !email) { fail(MESSAGES.contact_required); f.phone.focus(); return; }
+        if (email && !/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) { fail(MESSAGES.invalid_email); f.email.focus(); return; }
+        send.disabled = true; send.textContent = 'Sending…';
+        fetch('/api/connect', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: name, phone: phone, email: email,
+            what_they_do: f.what_they_do.value.trim(),
+            is_food_business: food.checked,
+            business_name: food.checked ? f.business_name.value.trim() : '',
+            wants_updates: f.wants_updates.checked,
+            website: f.website.value,
+            elapsed_ms: Date.now() - shownAt,
+            src: src, session_id: sid
+          })
+        }).then(function (r) {
+          return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok && j.ok, j: j }; });
+        }).then(function (res) {
+          if (res.ok) {
+            document.getElementById('swap-form-wrap').hidden = true;
+            document.getElementById('swap-done-title').textContent = 'Thanks, ' + name.split(/\s+/)[0] + '!';
+            document.getElementById('swap-done').hidden = false;
+            try { sessionStorage.setItem('cb-swap-done', '1'); } catch (e) {}
+            done = true;
+          } else {
+            fail(MESSAGES[res.j && res.j.error] || 'Something went wrong. Please try again.');
+            send.disabled = false; send.textContent = 'Share my details';
+          }
+        }).catch(function () {
+          fail('Couldn’t send. Check your connection and try again.');
+          send.disabled = false; send.textContent = 'Share my details';
+        });
+      });
     })();
   </script>
 </body>
