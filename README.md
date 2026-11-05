@@ -19,8 +19,10 @@ and diners from food-business owners.
 
 ## Share-back ("Let's stay in touch")
 
-On the founder card only (not `/tap`): after a visitor taps **Save contact**, a short form invites
-them to share their details back. A third button, **"Other industry? Let's connect"**, opens the same
+On the founder card only (not `/tap`): tapping **Save contact** first opens a short "Let's swap
+contacts" form. Submitting it saves Elvis's contact to their phone right after; a small
+"No thanks, just save mine" link saves it without sharing. Once they've swapped or skipped,
+Save contact downloads straight away for the rest of the session. A third button, **"Other industry? Let's connect"**, opens the same
 form at any time for people outside food and hospitality (stored as `entry = 'connect-button'`). `POST /api/connect` (Vercel function):
 
 1. Saves the contact via the `submit_card_connection` RPC into `public.card_connections`

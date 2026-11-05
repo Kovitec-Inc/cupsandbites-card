@@ -200,6 +200,8 @@
     .swap .done { display: flex; gap: 10px; align-items: flex-start; }
     .swap .done[hidden] { display: none; }
     .swap .done p { margin: 0; font-size: 15px; line-height: 1.45; }
+    .swap .done .again { display: inline-block; margin-top: 8px; font-size: 14px; font-weight: 700; color: var(--amber); text-underline-offset: 3px; }
+    .swap .done .again[hidden] { display: none; }
     .swap .done strong { font-family: 'Playfair Display', serif; font-size: 20px; display: block; margin-bottom: 2px; }
   </style>
   <script>
@@ -299,8 +301,8 @@
 
       <section class="swap" id="swap" aria-labelledby="swap-title" hidden>
         <div id="swap-form-wrap">
-          <h2 id="swap-title" tabindex="-1">Let&rsquo;s stay in touch</h2>
-          <p class="swap-sub">You&rsquo;ve got my details. Share yours so I can save yours too.</p>
+          <h2 id="swap-title" tabindex="-1">Let&rsquo;s swap contacts</h2>
+          <p class="swap-sub">Add your details and mine saves to your phone right after, so we both have each other.</p>
           <form id="swap-form" novalidate>
             <label class="field">Name
               <input type="text" name="name" autocomplete="name" maxlength="100" required>
@@ -338,7 +340,8 @@
         </div>
         <div class="done" id="swap-done" role="status" hidden>
           <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#97440c" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:3px"><path d="M20 6 9 17l-5-5"/></svg>
-          <p><strong id="swap-done-title">Thanks!</strong>I&rsquo;ve got your details. Talk soon.</p>
+          <p><strong id="swap-done-title">Thanks!</strong><span id="swap-done-msg">I&rsquo;ve got your details. Talk soon.</span>
+            <a class="again" id="swap-again" href="/elvis-koko.vcf" download="Elvis V. Koko - Cups & Bites.vcf" hidden>Didn&rsquo;t open? Tap to save my contact</a></p>
         </div>
         <p class="startup">Cups &amp; Bites is my startup: helping people find mom-and-pop, independent and internationally owned food spots by mood and vibe. We also provide digital and IT services to businesses outside food and hospitality: websites, social media, Google profiles, custom apps and more.</p>
       </section>
@@ -390,16 +393,24 @@
       var entry = 'after-save';
       var title = document.getElementById('swap-title');
       var sub = document.querySelector('#swap .swap-sub');
+      var skip = document.getElementById('swap-skip');
+      var again = document.getElementById('swap-again');
+      // 'after-save' = the Save contact button: swap first, then Elvis's contact downloads.
       var COPY = {
-        'after-save': { t: 'Let’s stay in touch', s: 'You’ve got my details. Share yours so I can save yours too.' },
-        'connect-button': { t: 'Let’s connect', s: 'Whatever your industry, we help small businesses with social media, websites, Google profiles, SEO, email, video and custom apps. Share your details and I’ll be in touch.' }
+        'after-save': { t: 'Let’s swap contacts', s: 'Add your details and mine saves to your phone right after, so we both have each other.', b: 'Swap & save contact', k: 'No thanks, just save mine' },
+        'connect-button': { t: 'Let’s connect', s: 'Whatever your industry, we help small businesses with social media, websites, Google profiles, SEO, email, video and custom apps. Share your details and I’ll be in touch.', b: 'Share my details', k: 'Skip' }
       };
+      // Trigger the real vCard link once the swap is done (or skipped).
+      function saveMine() { done = true; try { sessionStorage.setItem('cb-swap-done', '1'); } catch (e) {} save.click(); }
       function openPanel(mode, force) {
         if (!swap.hidden && entry === mode) return;
         if (!force && (done || !swap.hidden)) return;
         entry = mode;
         title.textContent = COPY[mode].t;
         sub.textContent = COPY[mode].s;
+        send.textContent = COPY[mode].b;
+        skip.textContent = COPY[mode].k;
+        err.hidden = true;
         document.getElementById('swap-form-wrap').hidden = false;
         document.getElementById('swap-done').hidden = true;
         swap.hidden = false;
@@ -408,14 +419,19 @@
         swap.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
         if (force) { try { title.focus({ preventScroll: true }); } catch (e) {} }
       }
-      // Let the contact download / contact sheet open first, then reveal the panel underneath.
-      save.addEventListener('click', function () { setTimeout(function () { openPanel('after-save', false); }, 700); });
+      // Save contact: ask for theirs first. Once they've swapped or skipped, it saves straight away.
+      save.addEventListener('click', function (e) {
+        if (done) return; // let the normal download happen
+        e.preventDefault();
+        openPanel('after-save', true);
+      });
       // Visible any time for people outside food & hospitality.
       document.getElementById('connect-open').addEventListener('click', function () { openPanel('connect-button', true); });
 
       food.addEventListener('change', function () { biz.hidden = !food.checked; });
-      document.getElementById('swap-skip').addEventListener('click', function () {
+      skip.addEventListener('click', function () {
         swap.hidden = true;
+        if (entry === 'after-save') { saveMine(); return; }
         try { sessionStorage.setItem('cb-swap-done', '1'); } catch (e) {}
         done = true;
       });
@@ -458,15 +474,18 @@
             document.getElementById('swap-form-wrap').hidden = true;
             document.getElementById('swap-done-title').textContent = 'Thanks, ' + name.split(/\s+/)[0] + '!';
             document.getElementById('swap-done').hidden = false;
-            try { sessionStorage.setItem('cb-swap-done', '1'); } catch (e) {}
-            done = true;
+            var gate = entry === 'after-save';
+            document.getElementById('swap-done-msg').textContent = gate ? 'Saving my contact to your phone now. Talk soon.' : 'I’ve got your details. Talk soon.';
+            again.hidden = !gate;
+            if (gate) saveMine();
+            else { try { sessionStorage.setItem('cb-swap-done', '1'); } catch (e) {} done = true; }
           } else {
             fail(MESSAGES[res.j && res.j.error] || 'Something went wrong. Please try again.');
-            send.disabled = false; send.textContent = 'Share my details';
+            send.disabled = false; send.textContent = COPY[entry].b;
           }
         }).catch(function () {
           fail('Couldn’t send. Check your connection and try again.');
-          send.disabled = false; send.textContent = 'Share my details';
+          send.disabled = false; send.textContent = COPY[entry].b;
         });
       });
     })();

@@ -49,7 +49,7 @@ function buildEmail(c) {
     `Food business owner: ${c.is_food_business ? "Yes" : "No"}`,
     c.is_food_business && c.business_name ? `Business: ${c.business_name}` : null,
     `Wants Cups & Bites updates: ${c.wants_updates ? "Yes (opted in)" : "No"}`,
-    `How they reached the form: ${c.entry === "connect-button" ? "\"Other industry? Let's connect\" button" : "After saving your contact"}`,
+    `How they reached the form: ${c.entry === "connect-button" ? "\"Other industry? Let's connect\" button" : "Save contact button (swapped details to save yours)"}`,
     `Scanned via: ${c.src || "direct"}`,
     `When: ${when}`,
     "",
