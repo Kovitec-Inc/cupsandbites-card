@@ -6,9 +6,8 @@ const crypto = require("node:crypto");
 const { sendMail } = require("./_smtp");
 
 const SUPABASE_URL = process.env.SUPABASE_URL || "https://zrrenemtbeirxsqwuagg.supabase.co";
-// Public (anon/publishable) key — safe to ship; table access is limited to the RPC.
-const SUPABASE_ANON_KEY = process.env.SUPABASE_ANON_KEY ||
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpycmVuZW10YmVpcnhzcXd1YWdnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzMjI5NzEsImV4cCI6MjA4ODg5ODk3MX0.8Ij0g4VZgJXiLjOueXvu7K8bQaZkhcwWcZg_kBMhcUM";
+// Public publishable key (legacy anon JWT keys are disabled on this project) — safe to ship; table access is limited to the RPC.
+const SUPABASE_ANON_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || "sb_publishable_xJCt3xcuy8aMTE-KqH132A_LSY-31da";
 const SMTP_HOST = process.env.SMTP_HOST || "smtp.titan.email";
 const SMTP_PORT = Number(process.env.SMTP_PORT || 465);
 const SMTP_SECURE = process.env.SMTP_SECURE !== "false";
@@ -111,7 +110,7 @@ async function handler(req, res) {
 
   const rpc = await fetch(`${SUPABASE_URL}/rest/v1/rpc/submit_card_connection`, {
     method: "POST",
-    headers: { apikey: SUPABASE_ANON_KEY, Authorization: `Bearer ${SUPABASE_ANON_KEY}`, "Content-Type": "application/json" },
+    headers: { apikey: SUPABASE_ANON_KEY, "Content-Type": "application/json" },
     body: JSON.stringify({
       p_name: c.name, p_phone: c.phone || null, p_email: c.email || null, p_what_they_do: c.what_they_do || null,
       p_is_food_business: c.is_food_business, p_business_name: c.business_name || null, p_wants_updates: c.wants_updates,
